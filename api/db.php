@@ -5,6 +5,7 @@ $port = "5432";
 $user = "postgres";
 $password = "@UMB.1611202";
 
+$dsn = "pgsql:host=$host;port=5432;dbname=$dbname;options='-4'"; 
 try {
     $conexion = new PDO(
         "pgsql:host=$host;port=$port;dbname=$dbname",

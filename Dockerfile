@@ -1,16 +1,17 @@
 FROM php:8.2-apache
 
-# Instalar extensiones necesarias para PostgreSQL
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
+# Instala extensiones si son necesarias (por ejemplo mysqli o pdo_pgsql según tu BD)
+RUN docker-php-ext-install mysqli
 
-# Habilitar el módulo rewrite de Apache (opcional pero recomendado)
+# Copiar todo el contenido de la carpeta api/ al directorio standard de Apache
+COPY api/ /var/www/html/
+
+# Establecer permisos adecuados
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
+
+# Habilitar mod_rewrite si lo usas
 RUN a2enmod rewrite
 
-# Copiar tu proyecto
-COPY . /var/www/html/
+EXPOSE 80
 
-# Dar permisos
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html

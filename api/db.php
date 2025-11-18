@@ -5,15 +5,13 @@ $port = "5432";
 $user = "postgres";
 $password = "@UMB.1611202";
 
-$dsn = "pgsql:host=$host;port=5432;dbname=$dbname;options='-4'"; 
 try {
     $conexion = new PDO(
-        "pgsql:host=$host;port=$port;dbname=$dbname",
+        "pgsql:host=$host;port=$port;dbname=$dbname;options='-4'",
         $user,
         $password
     );
     
-    // Activar errores de PDO
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch (PDOException $e) {
